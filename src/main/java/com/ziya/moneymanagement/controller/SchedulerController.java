@@ -1,8 +1,8 @@
 package com.ziya.moneymanagement.controller;
 
 
-import com.ziya.moneymanagement.scheduling.MyTaskScheduler;
-import com.ziya.moneymanagement.scheduling.ScheduleEntity;
+import com.ziya.moneymanagement.config.scheduling.MyTaskScheduler;
+import com.ziya.moneymanagement.config.scheduling.ScheduleEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;

@@ -1,4 +1,4 @@
-package com.ziya.moneymanagement.scheduling;
+package com.ziya.moneymanagement.config.scheduling;
 
 import lombok.Getter;
 import lombok.Setter;

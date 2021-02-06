@@ -1,4 +1,4 @@
-package com.ziya.moneymanagement.scheduling;
+package com.ziya.moneymanagement.config.scheduling;
 
 import com.ziya.moneymanagement.service.AccountService;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;

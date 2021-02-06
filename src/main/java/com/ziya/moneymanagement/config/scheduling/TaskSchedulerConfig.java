@@ -1,4 +1,4 @@
-package com.ziya.moneymanagement.scheduling;
+package com.ziya.moneymanagement.config.scheduling;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
