@@ -8,6 +8,9 @@ import com.ziya.moneymanagement.exception.CategoryNotFoundException;
 import com.ziya.moneymanagement.repository.AccountRepository;
 import com.ziya.moneymanagement.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,15 +23,17 @@ public class AccountService {
     private final TransactionService transactionService;
     private final CategoryRepository categoryRepository;
 
-
+    @Cacheable(value = "allAccounts", unless = "#result == null")
     public List<Account> getAll() {
         return accountRepository.findAll();
     }
 
+    @Cacheable(value = "allAccounts", unless = "#result == null", key = "#id")
     public Account getOne(Long id) {
         return accountRepository.findById(id).orElseThrow(AccountNotFoundException::new);
     }
 
+    @CacheEvict(value = "allAccounts", key = "#result.id")
     public Account update(Account account) {
         Long id = account.getId();
         return accountRepository.findById(id)
@@ -36,10 +41,12 @@ public class AccountService {
                 .orElseThrow(AccountNotFoundException::new);
     }
 
+    @CachePut(value = "allAccounts", key = "#account.id")
     public Account save(Account account) {
         return accountRepository.save(account);
     }
 
+    @CacheEvict(value = "allAccounts", key = "#id")
     public Account deleteById(Long id) {
         return accountRepository.findById(id)
                 .map(acc -> {
