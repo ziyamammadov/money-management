@@ -67,4 +67,12 @@ public class ExceptionHandler {
                 .description(exception.getMessage())
                 .build();
     }
+    @org.springframework.web.bind.annotation.ExceptionHandler(UserNotFoundException.class)
+    public ExceptionEntity handleUserNotFoundException() {
+        logger.error(String.format("ERROR - %s, %s", "404", "User not found"));
+        return ExceptionEntity.builder()
+                .code(404)
+                .description("User not found")
+                .build();
+    }
 }

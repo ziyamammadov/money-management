@@ -1,8 +1,8 @@
 package com.ziya.moneymanagement.security;
 
 import com.ziya.moneymanagement.exception.UserNotActivatedException;
-import com.ziya.moneymanagement.security.model.User;
-import com.ziya.moneymanagement.security.repository.UserRepository;
+import com.ziya.moneymanagement.entity.User;
+import com.ziya.moneymanagement.repository.UserRepository;
 import org.hibernate.validator.internal.constraintvalidators.bv.EmailValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

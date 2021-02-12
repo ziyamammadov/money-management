@@ -1,8 +1,8 @@
 package com.ziya.moneymanagement.entity;
 
-import com.ziya.moneymanagement.entity.enums.AccountType;
-import com.ziya.moneymanagement.entity.enums.CategoryType;
-import com.ziya.moneymanagement.entity.enums.Currency;
+import com.ziya.moneymanagement.model.enums.AccountType;
+import com.ziya.moneymanagement.model.enums.CategoryType;
+import com.ziya.moneymanagement.model.enums.Currency;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

@@ -1,4 +1,4 @@
-package com.ziya.moneymanagement.entity.enums;
+package com.ziya.moneymanagement.model.enums;
 
 public enum AccountType {
     REGULAR, DEPT, SAVINGS

@@ -1,7 +1,8 @@
-package com.ziya.moneymanagement.security.repository;
+package com.ziya.moneymanagement.repository;
 
-import com.ziya.moneymanagement.security.model.User;
+import com.ziya.moneymanagement.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
@@ -11,4 +12,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findOneWithAuthoritiesByUsername(String username);
 
     Optional<User> findOneWithAuthoritiesByEmailIgnoreCase(String email);
+
+    @Query(value = "update User u set u.activated = 'true' where u.email=?1")
+    Optional<User> activateAccount(String email);
 }

@@ -1,4 +1,4 @@
-package com.ziya.moneymanagement.security.model;
+package com.ziya.moneymanagement.entity;
 
 import lombok.Data;
 

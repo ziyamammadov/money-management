@@ -1,6 +1,6 @@
 package com.ziya.moneymanagement.controller;
 
-import com.ziya.moneymanagement.entity.FilterDate;
+import com.ziya.moneymanagement.model.FilterDate;
 import com.ziya.moneymanagement.entity.Transaction;
 import com.ziya.moneymanagement.service.TransactionService;
 import org.springframework.web.bind.annotation.*;

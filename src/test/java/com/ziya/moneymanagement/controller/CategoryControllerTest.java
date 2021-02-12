@@ -1,8 +1,8 @@
 package com.ziya.moneymanagement.controller;
 
 import com.ziya.moneymanagement.entity.Category;
-import com.ziya.moneymanagement.entity.enums.CategoryType;
-import com.ziya.moneymanagement.entity.enums.Currency;
+import com.ziya.moneymanagement.model.enums.CategoryType;
+import com.ziya.moneymanagement.model.enums.Currency;
 import com.ziya.moneymanagement.exception.CategoryNotFoundException;
 import com.ziya.moneymanagement.service.CategoryService;
 import org.junit.jupiter.api.BeforeEach;

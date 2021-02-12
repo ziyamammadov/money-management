@@ -1,7 +1,7 @@
 package com.ziya.moneymanagement.entity;
 
-import com.ziya.moneymanagement.entity.enums.CategoryType;
-import com.ziya.moneymanagement.entity.enums.Currency;
+import com.ziya.moneymanagement.model.enums.CategoryType;
+import com.ziya.moneymanagement.model.enums.Currency;
 import lombok.Data;
 
 import javax.persistence.*;

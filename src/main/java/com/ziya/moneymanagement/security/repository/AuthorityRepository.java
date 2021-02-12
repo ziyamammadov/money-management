@@ -1,6 +1,6 @@
 package com.ziya.moneymanagement.security.repository;
 
-import com.ziya.moneymanagement.security.model.Authority;
+import com.ziya.moneymanagement.entity.Authority;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
