@@ -58,4 +58,13 @@ public class ExceptionHandler {
                 .description("Incorrect json format")
                 .build();
     }
+
+    @org.springframework.web.bind.annotation.ExceptionHandler(UserNotActivatedException.class)
+    public ExceptionEntity handleUserNotActivatedException(Exception exception) {
+        logger.error(String.format("ERROR - %s, %s", "400", "User is not activated"));
+        return ExceptionEntity.builder()
+                .code(400)
+                .description(exception.getMessage())
+                .build();
+    }
 }
