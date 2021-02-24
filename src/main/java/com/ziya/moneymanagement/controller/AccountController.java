@@ -1,7 +1,7 @@
 package com.ziya.moneymanagement.controller;
 
 import com.ziya.moneymanagement.entity.Account;
-import com.ziya.moneymanagement.service.AccountService;
+import com.ziya.moneymanagement.service.AccountServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +12,7 @@ import java.util.List;
 @RequestMapping("/account")
 @RequiredArgsConstructor
 public class AccountController {
-    private final AccountService service;
+    private final AccountServiceImpl service;
 
     @GetMapping
     public List<Account> getAll() {

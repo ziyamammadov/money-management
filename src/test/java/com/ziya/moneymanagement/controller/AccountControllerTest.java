@@ -7,7 +7,7 @@ import com.ziya.moneymanagement.model.enums.AccountType;
 import com.ziya.moneymanagement.model.enums.CategoryType;
 import com.ziya.moneymanagement.model.enums.Currency;
 import com.ziya.moneymanagement.exception.AccountNotFoundException;
-import com.ziya.moneymanagement.service.AccountService;
+import com.ziya.moneymanagement.service.AccountServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +33,7 @@ class AccountControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private AccountService service;
+    private AccountServiceImpl service;
 
     @BeforeEach
     void setUp() {

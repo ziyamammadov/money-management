@@ -1,5 +1,6 @@
 package com.ziya.moneymanagement.service;
 
+import com.ziya.moneymanagement.entity.Account;
 import com.ziya.moneymanagement.entity.Category;
 import com.ziya.moneymanagement.exception.CategoryNotFoundException;
 import com.ziya.moneymanagement.repository.CategoryRepository;
@@ -13,7 +14,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class CategoryService {
+public class CategoryService implements CrudService<Category>{
     private final CategoryRepository categoryRepository;
 
     @Cacheable(value = "allCategories", unless = "#result == null")

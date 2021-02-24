@@ -26,11 +26,11 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
-class AccountServiceTest {
+class AccountServiceImplTest {
     @Mock
     private AccountRepository repository;
     @InjectMocks
-    private AccountService service;
+    private AccountServiceImpl service;
     private Account account;
 
     @BeforeEach

@@ -1,12 +1,12 @@
 package com.ziya.moneymanagement.config.scheduling;
 
-import com.ziya.moneymanagement.service.AccountService;
+import com.ziya.moneymanagement.service.AccountServiceImpl;
 
 public class MyScheduledTask implements Runnable {
     private final ScheduleEntity schedule;
-    private final AccountService service;
+    private final AccountServiceImpl service;
 
-    public MyScheduledTask(ScheduleEntity scheduleEntity, AccountService service) {
+    public MyScheduledTask(ScheduleEntity scheduleEntity, AccountServiceImpl service) {
         this.schedule = scheduleEntity;
         this.service = service;
     }

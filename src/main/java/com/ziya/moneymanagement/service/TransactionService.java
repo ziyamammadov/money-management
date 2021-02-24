@@ -1,5 +1,6 @@
 package com.ziya.moneymanagement.service;
 
+import com.ziya.moneymanagement.entity.Account;
 import com.ziya.moneymanagement.entity.Transaction;
 import com.ziya.moneymanagement.exception.TransactionNotFoundException;
 import com.ziya.moneymanagement.repository.TransactionRepository;
@@ -12,7 +13,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
-public class TransactionService {
+public class TransactionService implements CrudService<Transaction>{
     private final TransactionRepository repository;
 
     public TransactionService(TransactionRepository repository) {

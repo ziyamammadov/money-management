@@ -1,5 +1,6 @@
 package com.ziya.moneymanagement.service;
 
+import com.ziya.moneymanagement.entity.Account;
 import com.ziya.moneymanagement.entity.User;
 import com.ziya.moneymanagement.exception.TransactionNotFoundException;
 import com.ziya.moneymanagement.exception.UserNotFoundException;
@@ -16,7 +17,7 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public class UserService {
+public class UserService implements CrudService<User>{
     private final UserRepository repository;
     private final EmailSender emailSender;
 
