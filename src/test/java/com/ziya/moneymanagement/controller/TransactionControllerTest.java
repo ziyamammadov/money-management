@@ -1,5 +1,6 @@
 package com.ziya.moneymanagement.controller;
 
+
 import com.ziya.moneymanagement.entity.Account;
 import com.ziya.moneymanagement.entity.Category;
 import com.ziya.moneymanagement.entity.Transaction;
@@ -27,9 +28,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(controllers = TransactionController.class)
 @AutoConfigureMockMvc(addFilters = false)
-@ContextConfiguration(classes = TransactionController.class)
+@ContextConfiguration(classes = {TransactionController.class,MyExceptionHandler.class})
+@WebMvcTest(controllers = Transaction.class)
 class TransactionControllerTest {
     private Transaction transaction;
     private List<Transaction> transactionList;
@@ -80,13 +81,23 @@ class TransactionControllerTest {
 
     @Test
     void shouldFetchOneUserById() throws Exception {
-        final Long transactionId = 1L;
-        transaction.setId(transactionId);
+        final Long categoryId = 1L;
+        transaction.setId(categoryId);
 
-        given(service.getOne(transactionId)).willReturn(transaction);
-        this.mockMvc.perform(get("/transaction/{id}", transactionId))
+        given(service.getOne(categoryId)).willReturn(transaction);
+        this.mockMvc.perform(get("/transaction/{id}", categoryId))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.transactionAmount", is(transaction.getTransactionAmount())));
+    }
+
+    @Test
+    void shouldReturnExceptionWhenFindUserById() throws Exception {
+        final Long transactionId = 1L;
+        given(service.getOne(transactionId)).willThrow(new TransactionNotFoundException());
+
+        this.mockMvc.perform(get("/transaction/{id}", transactionId))
+                .andExpect(jsonPath("$.code", is(404)))
+                .andExpect(jsonPath("$.description", is("Transaction not found")));
     }
 
     @Test

@@ -4,7 +4,6 @@ import com.ziya.moneymanagement.security.JwtAccessDeniedHandler;
 import com.ziya.moneymanagement.security.JwtAuthenticationEntryPoint;
 import com.ziya.moneymanagement.security.jwt.JWTConfigurer;
 import com.ziya.moneymanagement.security.jwt.TokenProvider;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -12,8 +11,6 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.filter.CorsFilter;
 
@@ -36,13 +33,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
       this.corsFilter = corsFilter;
       this.authenticationErrorHandler = authenticationErrorHandler;
       this.jwtAccessDeniedHandler = jwtAccessDeniedHandler;
-   }
-
-   // Configure BCrypt password encoder
-
-   @Bean
-   public PasswordEncoder passwordEncoder() {
-      return new BCryptPasswordEncoder();
    }
 
    // Configure paths and requests that should be ignored by Spring Security
@@ -92,10 +82,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
               .and()
               .authorizeRequests()
-              .antMatchers("/user/authenticate").permitAll()
-              .antMatchers("/category/**").permitAll()
-
-//              .antMatchers("/category/**").hasAuthority("ROLE_USER")
+              .antMatchers("/user/**").permitAll()
+              .antMatchers("/payment/**").hasAuthority("ROLE_USER")
               .antMatchers("/transaction/**").hasAuthority("ROLE_ADMIN")
               .anyRequest().authenticated()
 

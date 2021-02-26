@@ -27,9 +27,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(controllers = AccountController.class)
 @AutoConfigureMockMvc(addFilters = false)
-@ContextConfiguration(classes = AccountController.class)
+@ContextConfiguration(classes = {AccountController.class,MyExceptionHandler.class})
+@WebMvcTest(controllers = AccountController.class)
 class AccountControllerTest {
     private Account account;
     private List<Account> accountList;
@@ -106,6 +106,16 @@ class AccountControllerTest {
     }
 
     @Test
+    void shouldReturnExceptionWhenFindUserById() throws Exception {
+        final Long accountId = 1L;
+        given(service.getOne(accountId)).willThrow(new AccountNotFoundException());
+
+        this.mockMvc.perform(get("/account/{id}", accountId))
+                .andExpect(jsonPath("$.code", is(404)))
+                .andExpect(jsonPath("$.description", is("Account not found")));
+    }
+
+    @Test
     void shouldDeleteUser() throws Exception {
         Long accountId = 1L;
         account.setId(accountId);
@@ -116,3 +126,4 @@ class AccountControllerTest {
 
     }
 }
+
