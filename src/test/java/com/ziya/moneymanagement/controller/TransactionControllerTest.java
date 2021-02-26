@@ -80,13 +80,12 @@ class TransactionControllerTest {
 
     @Test
     void shouldFetchOneUserById() throws Exception {
-        final Long categoryId = 1L;
-        transaction.setId(categoryId);
+        final Long transactionId = 1L;
+        transaction.setId(transactionId);
 
-        given(service.getOne(categoryId)).willReturn(transaction);
-        this.mockMvc.perform(get("/transaction/{id}", categoryId))
+        given(service.getOne(transactionId)).willReturn(transaction);
+        this.mockMvc.perform(get("/transaction/{id}", transactionId))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.category", is(transaction.getCategory())))
                 .andExpect(jsonPath("$.transactionAmount", is(transaction.getTransactionAmount())));
     }
 
