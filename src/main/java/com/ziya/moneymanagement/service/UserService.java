@@ -1,6 +1,5 @@
 package com.ziya.moneymanagement.service;
 
-import com.ziya.moneymanagement.entity.Account;
 import com.ziya.moneymanagement.entity.User;
 import com.ziya.moneymanagement.exception.TransactionNotFoundException;
 import com.ziya.moneymanagement.exception.UserNotFoundException;
@@ -19,11 +18,11 @@ import java.util.Optional;
 @Transactional
 public class UserService implements CrudService<User>{
     private final UserRepository repository;
-    private final EmailSender emailSender;
+//    private final EmailSender emailSender;
 
-    public UserService(UserRepository repository,EmailSender emailSender) {
+    public UserService(UserRepository repository) {
         this.repository = repository;
-        this.emailSender = emailSender;
+//        this.emailSender = emailSender;
     }
 
     @Transactional(readOnly = true)
@@ -46,7 +45,7 @@ public class UserService implements CrudService<User>{
         StringBuilder text = new StringBuilder("You successfully registered. Please click the link to activate your profile \n");
         text.append("http://localhost:8080/user/activate/").append(user.getEmail());
         String subject = "Account Activation";
-        emailSender.sendPlainText(user.getEmail(),subject, String.valueOf(text));
+        //emailSender.sendPlainText(user.getEmail(),subject, String.valueOf(text));
         return repository.save(user);
     }
 

@@ -3,16 +3,18 @@ package com.ziya.moneymanagement.controller;
 import com.ziya.moneymanagement.entity.Account;
 import com.ziya.moneymanagement.entity.Category;
 import com.ziya.moneymanagement.entity.Transaction;
+import com.ziya.moneymanagement.exception.TransactionNotFoundException;
 import com.ziya.moneymanagement.model.enums.AccountType;
 import com.ziya.moneymanagement.model.enums.CategoryType;
 import com.ziya.moneymanagement.model.enums.Currency;
-import com.ziya.moneymanagement.exception.TransactionNotFoundException;
 import com.ziya.moneymanagement.service.TransactionService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.ArrayList;
@@ -25,7 +27,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(controllers = CategoryController.class)
+@WebMvcTest(controllers = TransactionController.class)
+@AutoConfigureMockMvc(addFilters = false)
+@ContextConfiguration(classes = TransactionController.class)
 class TransactionControllerTest {
     private Transaction transaction;
     private List<Transaction> transactionList;
@@ -84,16 +88,6 @@ class TransactionControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.category", is(transaction.getCategory())))
                 .andExpect(jsonPath("$.transactionAmount", is(transaction.getTransactionAmount())));
-    }
-
-    @Test
-    void shouldReturnExceptionWhenFindUserById() throws Exception {
-        final Long transactionId = 1L;
-        given(service.getOne(transactionId)).willThrow(new TransactionNotFoundException());
-
-        this.mockMvc.perform(get("/transaction/{id}", transactionId))
-                .andExpect(jsonPath("$.code", is(404)))
-                .andExpect(jsonPath("$.description", is("Transaction not found")));
     }
 
     @Test

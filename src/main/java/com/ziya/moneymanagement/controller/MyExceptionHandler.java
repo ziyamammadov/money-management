@@ -5,16 +5,21 @@ import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.ConstraintViolationException;
+import java.util.ArrayList;
+import java.util.List;
 
 @ControllerAdvice
 @RestController
 @ResponseStatus(HttpStatus.BAD_REQUEST)
-public class ExceptionHandler {
+public class MyExceptionHandler {
     Logger logger = Logger.getLogger(this.getClass());
 
-    @org.springframework.web.bind.annotation.ExceptionHandler(GeneralException.class)
+    @ExceptionHandler(GeneralException.class)
     public ExceptionEntity handleGeneralException(GeneralException ex) {
         logger.error(String.format("ERROR - %s, %s", "200", ex.getMessage()));
         return ExceptionEntity.builder()
@@ -23,7 +28,7 @@ public class ExceptionHandler {
                 .build();
     }
 
-    @org.springframework.web.bind.annotation.ExceptionHandler(AccountNotFoundException.class)
+    @ExceptionHandler(AccountNotFoundException.class)
     public ExceptionEntity handleAccountNotFoundException() {
         logger.error(String.format("ERROR - %s, %s", "404", "Account not found"));
         return ExceptionEntity.builder()
@@ -32,7 +37,7 @@ public class ExceptionHandler {
                 .build();
     }
 
-    @org.springframework.web.bind.annotation.ExceptionHandler(CategoryNotFoundException.class)
+    @ExceptionHandler(CategoryNotFoundException.class)
     public ExceptionEntity handleCategoryNotFoundException() {
         logger.error(String.format("ERROR - %s, %s", "404", "Category not found"));
         return ExceptionEntity.builder()
@@ -41,7 +46,7 @@ public class ExceptionHandler {
                 .build();
     }
 
-    @org.springframework.web.bind.annotation.ExceptionHandler(TransactionNotFoundException.class)
+    @ExceptionHandler(TransactionNotFoundException.class)
     public ExceptionEntity handleTransactionNotFoundException() {
         logger.error(String.format("ERROR - %s, %s", "404", "Transaction not found"));
         return ExceptionEntity.builder()
@@ -50,16 +55,7 @@ public class ExceptionHandler {
                 .build();
     }
 
-    @org.springframework.web.bind.annotation.ExceptionHandler(HttpMessageNotReadableException.class)
-    public ExceptionEntity handleHttpMessageNotReadableException() {
-        logger.error(String.format("ERROR - %s, %s", "404", "Incorrect json format"));
-        return ExceptionEntity.builder()
-                .code(404)
-                .description("Incorrect json format")
-                .build();
-    }
-
-    @org.springframework.web.bind.annotation.ExceptionHandler(UserNotActivatedException.class)
+    @ExceptionHandler(UserNotActivatedException.class)
     public ExceptionEntity handleUserNotActivatedException(Exception exception) {
         logger.error(String.format("ERROR - %s, %s", "400", "User is not activated"));
         return ExceptionEntity.builder()
@@ -67,7 +63,8 @@ public class ExceptionHandler {
                 .description(exception.getMessage())
                 .build();
     }
-    @org.springframework.web.bind.annotation.ExceptionHandler(UserNotFoundException.class)
+
+    @ExceptionHandler(UserNotFoundException.class)
     public ExceptionEntity handleUserNotFoundException() {
         logger.error(String.format("ERROR - %s, %s", "404", "User not found"));
         return ExceptionEntity.builder()
@@ -75,4 +72,17 @@ public class ExceptionHandler {
                 .description("User not found")
                 .build();
     }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ExceptionEntity validationErrorHandler(ConstraintViolationException ex) {
+        List<String> errorsList = new ArrayList<>(ex.getConstraintViolations().size());
+
+        ex.getConstraintViolations().forEach(error -> errorsList.add(error.toString()));
+
+        return ExceptionEntity.builder()
+                .code(404)
+                .description(errorsList.toString())
+                .build();
+    }
+
 }

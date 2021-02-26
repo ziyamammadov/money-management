@@ -20,6 +20,7 @@ public class Account implements Serializable {
     private String accountName;
 
     @CreationTimestamp
+    @Column(updatable = false)
     private LocalDateTime createdDateTime;
 
     @Enumerated(EnumType.STRING)

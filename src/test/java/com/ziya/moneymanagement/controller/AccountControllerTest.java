@@ -3,16 +3,18 @@ package com.ziya.moneymanagement.controller;
 import com.ziya.moneymanagement.entity.Account;
 import com.ziya.moneymanagement.entity.Category;
 import com.ziya.moneymanagement.entity.Transaction;
+import com.ziya.moneymanagement.exception.AccountNotFoundException;
 import com.ziya.moneymanagement.model.enums.AccountType;
 import com.ziya.moneymanagement.model.enums.CategoryType;
 import com.ziya.moneymanagement.model.enums.Currency;
-import com.ziya.moneymanagement.exception.AccountNotFoundException;
 import com.ziya.moneymanagement.service.AccountServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.ArrayList;
@@ -26,6 +28,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(controllers = AccountController.class)
+@AutoConfigureMockMvc(addFilters = false)
+@ContextConfiguration(classes = AccountController.class)
 class AccountControllerTest {
     private Account account;
     private List<Account> accountList;
@@ -99,16 +103,6 @@ class AccountControllerTest {
                 .andExpect(jsonPath("$.creditLimit", is(account.getCreditLimit())))
                 .andExpect(jsonPath("$.transactions", is(account.getTransactions())))
                 .andExpect(jsonPath("$.balance", is(account.getBalance())));
-    }
-
-    @Test
-    void shouldReturnExceptionWhenFindUserById() throws Exception {
-        final Long accountId = 1L;
-        given(service.getOne(accountId)).willThrow(new AccountNotFoundException());
-
-        this.mockMvc.perform(get("/account/{id}", accountId))
-                .andExpect(jsonPath("$.code", is(404)))
-                .andExpect(jsonPath("$.description", is("Account not found")));
     }
 
     @Test
