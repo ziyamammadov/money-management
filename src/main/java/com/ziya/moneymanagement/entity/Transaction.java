@@ -17,6 +17,7 @@ public class Transaction implements Serializable {
 
     private double transactionAmount;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private Category category;
