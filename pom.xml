@@ -14,6 +14,7 @@
     <name>money-management</name>
     <description>Back-end for the money management program</description>
 
+
     <properties>
         <java.version>11</java.version>
         <jjwt.version>0.10.6</jjwt.version>
